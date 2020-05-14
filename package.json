@@ -1,6 +1,6 @@
 {
   "name": "node-appwrite",
-  "homepage": "https://appwrite.io/support",
+  "homepage": "",
   "description": "Appwrite is an open-source self-hosted backend server that abstract and simplify complex and repetitive development tasks behind a very simple REST API",
   "version": "1.0.32",
   "license": "BSD-3-Clause",
