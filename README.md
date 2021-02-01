@@ -1,9 +1,9 @@
 # Appwrite Node.js SDK
 
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-node.svg?v=1)
-![Version](https://img.shields.io/badge/api%20version-0.6.2-blue.svg?v=1)
+![Version](https://img.shields.io/badge/api%20version-0.7.0-blue.svg?v=1)
 
-**This SDK is compatible with Appwrite server version 0.6.2. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
+**This SDK is compatible with Appwrite server version 0.7.0. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
 
  > This is the Node.js SDK for integrating with Appwrite from your Node.js server-side code.
                             If you're looking to integrate from the browser, you should check [appwrite/sdk-for-web](https://github.com/appwrite/sdk-for-web)
