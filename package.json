@@ -7,7 +7,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/appwrite/sdk-for-node"
+    "url": "https://github.com/aw-tests/sdk-for-node"
   },
   "devDependencies": {},
   "dependencies": {
