@@ -1,9 +1,9 @@
 # Appwrite Node.js SDK
 
-![License](https://img.shields.io/github/license/appwrite/sdk-for-node.svg?v=1)
-![Version](https://img.shields.io/badge/api%20version-0.8.0-blue.svg?v=1)
+![License](https://img.shields.io/github/license/appwrite/sdk-for-node.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-0.7.0-blue.svg?style=flat-square)
 
-**This SDK is compatible with Appwrite server version 0.8.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
+**This SDK is compatible with Appwrite server version 0.7.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
 
  > This is the Node.js SDK for integrating with Appwrite from your Node.js server-side code.
                             If you're looking to integrate from the browser, you should check [appwrite/sdk-for-web](https://github.com/appwrite/sdk-for-web)
@@ -75,19 +75,6 @@ promise.then(function (response) {
 }, function (error) {
     console.log(error);
 });
-```
-
-### Error Handling
-The Appwrite Node SDK raises `AppwriteException` object with `message`, `code` and `response` properties. You can handle any errors by catching `AppwriteException` and present the `message` to the user or handle it yourself based on the provided error information. Below is an example.
-
-```js
-let users = new sdk.Users(client);
-
-try {
-    let res = await users.create('email@example.com', 'password');
-} catch(e) {
-    console.log(e.message);
-}
 ```
 
 ### Learn more
