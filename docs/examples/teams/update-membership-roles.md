@@ -8,10 +8,10 @@ let teams = new sdk.Teams(client);
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     .setProject('5df5acd0d48c2') // Your project ID
-    .setJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...') // Your secret JSON Web Token
+    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-let promise = teams.updateMembershipStatus('[TEAM_ID]', '[MEMBERSHIP_ID]', '[USER_ID]', '[SECRET]');
+let promise = teams.updateMembershipRoles('[TEAM_ID]', '[MEMBERSHIP_ID]', []);
 
 promise.then(function (response) {
     console.log(response);
