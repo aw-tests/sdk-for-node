@@ -70,6 +70,10 @@ declare module "node-appwrite" {
       */
       export type LogList = {
           /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
           * List of logs.
           */
           logs: Log[];
@@ -1265,7 +1269,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(): Promise<Response>;
+    get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
      * Delete Account
      *
@@ -1294,17 +1298,19 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateEmail(email: string, password: string): Promise<Response>;
+    updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.User<Preferences>>;
     /**
      * Get Account Logs
      *
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
      *
+     * @param {number} limit
+     * @param {number} offset
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs(): Promise<Response>;
+    getLogs(limit?: number, offset?: number): Promise<Models.LogList>;
     /**
      * Update Account Name
      *
@@ -1314,7 +1320,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateName(name: string): Promise<Response>;
+    updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.User<Preferences>>;
     /**
      * Update Account Password
      *
@@ -1327,7 +1333,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePassword(password: string, oldPassword?: string): Promise<Response>;
+    updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>>;
     /**
      * Get Account Preferences
      *
@@ -1336,7 +1342,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getPrefs(): Promise<Response>;
+    getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences>;
     /**
      * Update Account Preferences
      *
@@ -1347,7 +1353,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePrefs(prefs: object): Promise<Response>;
+    updatePrefs<Preferences extends Models.Preferences>(prefs: object): Promise<Models.User<Preferences>>;
     /**
      * Create Password Recovery
      *
@@ -1365,7 +1371,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createRecovery(email: string, url: string): Promise<Response>;
+    createRecovery(email: string, url: string): Promise<Models.Token>;
     /**
      * Create Password Recovery (confirmation)
      *
@@ -1386,7 +1392,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Response>;
+    updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Models.Token>;
     /**
      * Get Account Sessions
      *
@@ -1396,7 +1402,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSessions(): Promise<Response>;
+    getSessions(): Promise<Models.SessionList>;
     /**
      * Delete All Account Sessions
      *
@@ -1417,7 +1423,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSession(sessionId: string): Promise<Response>;
+    getSession(sessionId: string): Promise<Models.Session>;
     /**
      * Delete Account Session
      *
@@ -1453,7 +1459,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createVerification(url: string): Promise<Response>;
+    createVerification(url: string): Promise<Models.Token>;
     /**
      * Create Email Verification (confirmation)
      *
@@ -1467,7 +1473,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateVerification(userId: string, secret: string): Promise<Response>;
+    updateVerification(userId: string, secret: string): Promise<Models.Token>;
   }
   export class Avatars extends Service {
     /**
@@ -1599,7 +1605,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listCollections(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    listCollections(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
     /**
      * Create Collection
      *
@@ -1608,12 +1614,12 @@ declare module "node-appwrite" {
      * @param {string} collectionId
      * @param {string} name
      * @param {string} permission
-     * @param {string} read
-     * @param {string} write
+     * @param {string[]} read
+     * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createCollection(collectionId: string, name: string, permission: string, read: string, write: string): Promise<Response>;
+    createCollection(collectionId: string, name: string, permission: string, read: string[], write: string[]): Promise<Models.Collection>;
     /**
      * Get Collection
      *
@@ -1624,7 +1630,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCollection(collectionId: string): Promise<Response>;
+    getCollection(collectionId: string): Promise<Models.Collection>;
     /**
      * Update Collection
      *
@@ -1633,12 +1639,12 @@ declare module "node-appwrite" {
      * @param {string} collectionId
      * @param {string} name
      * @param {string} permission
-     * @param {string} read
-     * @param {string} write
+     * @param {string[]} read
+     * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateCollection(collectionId: string, name: string, permission: string, read?: string, write?: string): Promise<Response>;
+    updateCollection(collectionId: string, name: string, permission: string, read?: string[], write?: string[]): Promise<Models.Collection>;
     /**
      * Delete Collection
      *
@@ -1657,7 +1663,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listAttributes(collectionId: string): Promise<Response>;
+    listAttributes(collectionId: string): Promise<Models.AttributeList>;
     /**
      * Create Boolean Attribute
      *
@@ -1672,7 +1678,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBooleanAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Response>;
+    createBooleanAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
     /**
      * Create Email Attribute
      *
@@ -1687,7 +1693,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEmailAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: string, array?: boolean): Promise<Response>;
+    createEmailAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
     /**
      * Create Enum Attribute
      *
@@ -1700,7 +1706,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEnumAttribute(collectionId: string, attributeId: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Response>;
+    createEnumAttribute(collectionId: string, attributeId: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
     /**
      * Create Float Attribute
      *
@@ -1718,7 +1724,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFloatAttribute(collectionId: string, attributeId: string, required: boolean, min?: string, max?: string, xdefault?: string, array?: boolean): Promise<Response>;
+    createFloatAttribute(collectionId: string, attributeId: string, required: boolean, min?: string, max?: string, xdefault?: string, array?: boolean): Promise<Models.AttributeFloat>;
     /**
      * Create Integer Attribute
      *
@@ -1736,7 +1742,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIntegerAttribute(collectionId: string, attributeId: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Response>;
+    createIntegerAttribute(collectionId: string, attributeId: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
     /**
      * Create IP Address Attribute
      *
@@ -1751,7 +1757,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIpAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: string, array?: boolean): Promise<Response>;
+    createIpAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
     /**
      * Create String Attribute
      *
@@ -1767,7 +1773,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createStringAttribute(collectionId: string, attributeId: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Response>;
+    createStringAttribute(collectionId: string, attributeId: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
     /**
      * Create URL Attribute
      *
@@ -1782,7 +1788,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createUrlAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: string, array?: boolean): Promise<Response>;
+    createUrlAttribute(collectionId: string, attributeId: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
     /**
      * Get Attribute
      *
@@ -1820,7 +1826,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listDocuments(collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Response>;
+    listDocuments<Document extends Models.Document>(collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Models.DocumentList<Document>>;
     /**
      * Create Document
      *
@@ -1832,12 +1838,12 @@ declare module "node-appwrite" {
      * @param {string} collectionId
      * @param {string} documentId
      * @param {object} data
-     * @param {string} read
-     * @param {string} write
+     * @param {string[]} read
+     * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDocument(collectionId: string, documentId: string, data: object, read?: string, write?: string): Promise<Response>;
+    createDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Get Document
      *
@@ -1849,7 +1855,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDocument(collectionId: string, documentId: string): Promise<Response>;
+    getDocument<Document extends Models.Document>(collectionId: string, documentId: string): Promise<Document>;
     /**
      * Update Document
      *
@@ -1859,12 +1865,12 @@ declare module "node-appwrite" {
      * @param {string} collectionId
      * @param {string} documentId
      * @param {object} data
-     * @param {string} read
-     * @param {string} write
+     * @param {string[]} read
+     * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateDocument(collectionId: string, documentId: string, data: object, read?: string, write?: string): Promise<Response>;
+    updateDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Delete Document
      *
@@ -1885,7 +1891,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listIndexes(collectionId: string): Promise<Response>;
+    listIndexes(collectionId: string): Promise<Models.IndexList>;
     /**
      * Create Index
      *
@@ -1897,7 +1903,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIndex(collectionId: string, indexId: string, type: string, attributes: string[], orders?: string[]): Promise<Response>;
+    createIndex(collectionId: string, indexId: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
     /**
      * Get Index
      *
@@ -1906,7 +1912,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getIndex(collectionId: string, indexId: string): Promise<Response>;
+    getIndex(collectionId: string, indexId: string): Promise<Models.Index>;
     /**
      * Delete Index
      *
@@ -1933,7 +1939,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.FunctionList>;
     /**
      * Create Function
      *
@@ -1952,7 +1958,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(functionId: string, name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Response>;
+    create(functionId: string, name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
     /**
      * Get Function
      *
@@ -1962,7 +1968,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(functionId: string): Promise<Response>;
+    get(functionId: string): Promise<Models.Function>;
     /**
      * Update Function
      *
@@ -1978,7 +1984,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(functionId: string, name: string, execute: string[], vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Response>;
+    update(functionId: string, name: string, execute: string[], vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
     /**
      * Delete Function
      *
@@ -2006,7 +2012,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listExecutions(functionId: string, limit?: number, offset?: number, search?: string, cursor?: string, cursorDirection?: string): Promise<Response>;
+    listExecutions(functionId: string, limit?: number, offset?: number, search?: string, cursor?: string, cursorDirection?: string): Promise<Models.ExecutionList>;
     /**
      * Create Execution
      *
@@ -2020,7 +2026,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createExecution(functionId: string, data?: string): Promise<Response>;
+    createExecution(functionId: string, data?: string): Promise<Models.Execution>;
     /**
      * Get Execution
      *
@@ -2031,7 +2037,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getExecution(functionId: string, executionId: string): Promise<Response>;
+    getExecution(functionId: string, executionId: string): Promise<Models.Execution>;
     /**
      * Update Function Tag
      *
@@ -2044,7 +2050,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateTag(functionId: string, tag: string): Promise<Response>;
+    updateTag(functionId: string, tag: string): Promise<Models.Function>;
     /**
      * List Tags
      *
@@ -2061,7 +2067,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listTags(functionId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    listTags(functionId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.TagList>;
     /**
      * Create Tag
      *
@@ -2082,7 +2088,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createTag(functionId: string, command: string, code: File): Promise<Response>;
+    createTag(functionId: string, command: string, code: File): Promise<Models.Tag>;
     /**
      * Get Tag
      *
@@ -2093,7 +2099,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getTag(functionId: string, tagId: string): Promise<Response>;
+    getTag(functionId: string, tagId: string): Promise<Models.Tag>;
     /**
      * Delete Tag
      *
@@ -2231,7 +2237,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(): Promise<Response>;
+    get(): Promise<Models.Locale>;
     /**
      * List Continents
      *
@@ -2241,7 +2247,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getContinents(): Promise<Response>;
+    getContinents(): Promise<Models.ContinentList>;
     /**
      * List Countries
      *
@@ -2251,7 +2257,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountries(): Promise<Response>;
+    getCountries(): Promise<Models.CountryList>;
     /**
      * List EU Countries
      *
@@ -2261,7 +2267,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountriesEU(): Promise<Response>;
+    getCountriesEU(): Promise<Models.CountryList>;
     /**
      * List Countries Phone Codes
      *
@@ -2271,7 +2277,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountriesPhones(): Promise<Response>;
+    getCountriesPhones(): Promise<Models.PhoneList>;
     /**
      * List Currencies
      *
@@ -2282,7 +2288,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCurrencies(): Promise<Response>;
+    getCurrencies(): Promise<Models.CurrencyList>;
     /**
      * List Languages
      *
@@ -2292,7 +2298,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLanguages(): Promise<Response>;
+    getLanguages(): Promise<Models.LanguageList>;
   }
   export class Storage extends Service {
     /**
@@ -2311,7 +2317,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listFiles(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    listFiles(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.FileList>;
     /**
      * Create File
      *
@@ -2326,7 +2332,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile(fileId: string, file: File, read?: string[], write?: string[]): Promise<Response>;
+    createFile(fileId: string, file: File, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
@@ -2337,7 +2343,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFile(fileId: string): Promise<Response>;
+    getFile(fileId: string): Promise<Models.File>;
     /**
      * Update File
      *
@@ -2350,7 +2356,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateFile(fileId: string, read: string[], write: string[]): Promise<Response>;
+    updateFile(fileId: string, read: string[], write: string[]): Promise<Models.File>;
     /**
      * Delete File
      *
@@ -2429,7 +2435,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.TeamList>;
     /**
      * Create Team
      *
@@ -2444,7 +2450,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(teamId: string, name: string, roles?: string[]): Promise<Response>;
+    create(teamId: string, name: string, roles?: string[]): Promise<Models.Team>;
     /**
      * Get Team
      *
@@ -2455,7 +2461,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(teamId: string): Promise<Response>;
+    get(teamId: string): Promise<Models.Team>;
     /**
      * Update Team
      *
@@ -2467,7 +2473,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(teamId: string, name: string): Promise<Response>;
+    update(teamId: string, name: string): Promise<Models.Team>;
     /**
      * Delete Team
      *
@@ -2495,7 +2501,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMemberships(teamId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    getMemberships(teamId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.MembershipList>;
     /**
      * Create Team Membership
      *
@@ -2524,7 +2530,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createMembership(teamId: string, email: string, roles: string[], url: string, name?: string): Promise<Response>;
+    createMembership(teamId: string, email: string, roles: string[], url: string, name?: string): Promise<Models.Membership>;
     /**
      * Get Team Membership
      *
@@ -2536,7 +2542,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMembership(teamId: string, membershipId: string): Promise<Response>;
+    getMembership(teamId: string, membershipId: string): Promise<Models.MembershipList>;
     /**
      * Update Membership Roles
      *
@@ -2546,7 +2552,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateMembershipRoles(teamId: string, membershipId: string, roles: string[]): Promise<Response>;
+    updateMembershipRoles(teamId: string, membershipId: string, roles: string[]): Promise<Models.Membership>;
     /**
      * Delete Team Membership
      *
@@ -2574,7 +2580,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Response>;
+    updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Models.Membership>;
   }
   export class Users extends Service {
     /**
@@ -2592,7 +2598,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Response>;
+    list<Preferences extends Models.Preferences>(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.UserList<Preferences>>;
     /**
      * Create User
      *
@@ -2605,7 +2611,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(userId: string, email: string, password: string, name?: string): Promise<Response>;
+    create<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     /**
      * Get User
      *
@@ -2615,7 +2621,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(userId: string): Promise<Response>;
+    get<Preferences extends Models.Preferences>(userId: string): Promise<Models.User<Preferences>>;
     /**
      * Delete User
      *
@@ -2636,17 +2642,19 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateEmail(userId: string, email: string): Promise<Response>;
+    updateEmail<Preferences extends Models.Preferences>(userId: string, email: string): Promise<Models.User<Preferences>>;
     /**
      * Get User Logs
      *
      * Get the user activity logs list by its unique ID.
      *
      * @param {string} userId
+     * @param {number} limit
+     * @param {number} offset
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs(userId: string): Promise<Response>;
+    getLogs(userId: string, limit?: number, offset?: number): Promise<Models.LogList>;
     /**
      * Update Name
      *
@@ -2657,7 +2665,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateName(userId: string, name: string): Promise<Response>;
+    updateName<Preferences extends Models.Preferences>(userId: string, name: string): Promise<Models.User<Preferences>>;
     /**
      * Update Password
      *
@@ -2668,7 +2676,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePassword(userId: string, password: string): Promise<Response>;
+    updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
     /**
      * Get User Preferences
      *
@@ -2678,7 +2686,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getPrefs(userId: string): Promise<Response>;
+    getPrefs<Preferences extends Models.Preferences>(userId: string): Promise<Preferences>;
     /**
      * Update User Preferences
      *
@@ -2690,7 +2698,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePrefs(userId: string, prefs: object): Promise<Response>;
+    updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences>;
     /**
      * Get User Sessions
      *
@@ -2700,7 +2708,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSessions(userId: string): Promise<Response>;
+    getSessions(userId: string): Promise<Models.SessionList>;
     /**
      * Delete User Sessions
      *
@@ -2732,7 +2740,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateStatus(userId: string, status: boolean): Promise<Response>;
+    updateStatus<Preferences extends Models.Preferences>(userId: string, status: boolean): Promise<Models.User<Preferences>>;
     /**
      * Update Email Verification
      *
@@ -2743,6 +2751,6 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateVerification(userId: string, emailVerification: boolean): Promise<Response>;
+    updateVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
   }
 }
