@@ -290,7 +290,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Attribute size.
           */
@@ -298,7 +298,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeInteger
@@ -323,19 +323,19 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Minimum value to enforce for new documents.
           */
-          min: number;
+          min?: number;
           /**
           * Maximum value to enforce for new documents.
           */
-          max: number;
+          max?: number;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: number;
+          xdefault?: number;
       }
       /**
       * AttributeFloat
@@ -360,19 +360,19 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Minimum value to enforce for new documents.
           */
-          min: number;
+          min?: number;
           /**
           * Maximum value to enforce for new documents.
           */
-          max: number;
+          max?: number;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: number;
+          xdefault?: number;
       }
       /**
       * AttributeBoolean
@@ -397,11 +397,11 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: boolean;
+          xdefault?: boolean;
       }
       /**
       * AttributeEmail
@@ -426,7 +426,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * String format.
           */
@@ -434,7 +434,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeEnum
@@ -459,7 +459,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Array of elements in enumerated type.
           */
@@ -471,7 +471,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeIP
@@ -496,7 +496,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * String format.
           */
@@ -504,7 +504,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeURL
@@ -529,7 +529,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * String format.
           */
@@ -537,7 +537,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * Index
