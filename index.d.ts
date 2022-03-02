@@ -5,9 +5,9 @@ declare module "node-appwrite" {
       */
       export type DocumentList<Document extends Models.Document> = {
           /**
-          * Total number of items available on the server.
+          * Total number of documents documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of documents.
           */
@@ -18,9 +18,9 @@ declare module "node-appwrite" {
       */
       export type CollectionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of collections documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of collections.
           */
@@ -31,9 +31,9 @@ declare module "node-appwrite" {
       */
       export type IndexList = {
           /**
-          * Total number of items available on the server.
+          * Total number of indexes documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of indexes.
           */
@@ -44,9 +44,9 @@ declare module "node-appwrite" {
       */
       export type UserList<Preferences extends Models.Preferences> = {
           /**
-          * Total number of items available on the server.
+          * Total number of users documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of users.
           */
@@ -57,9 +57,9 @@ declare module "node-appwrite" {
       */
       export type SessionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of sessions documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of sessions.
           */
@@ -70,9 +70,9 @@ declare module "node-appwrite" {
       */
       export type LogList = {
           /**
-          * Total number of items available on the server.
+          * Total number of logs documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of logs.
           */
@@ -83,9 +83,9 @@ declare module "node-appwrite" {
       */
       export type FileList = {
           /**
-          * Total number of items available on the server.
+          * Total number of files documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of files.
           */
@@ -96,9 +96,9 @@ declare module "node-appwrite" {
       */
       export type BucketList = {
           /**
-          * Total number of items available on the server.
+          * Total number of buckets documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of buckets.
           */
@@ -109,9 +109,9 @@ declare module "node-appwrite" {
       */
       export type TeamList = {
           /**
-          * Total number of items available on the server.
+          * Total number of teams documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of teams.
           */
@@ -122,9 +122,9 @@ declare module "node-appwrite" {
       */
       export type MembershipList = {
           /**
-          * Total number of items available on the server.
+          * Total number of memberships documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of memberships.
           */
@@ -135,9 +135,9 @@ declare module "node-appwrite" {
       */
       export type FunctionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of functions documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of functions.
           */
@@ -148,9 +148,9 @@ declare module "node-appwrite" {
       */
       export type RuntimeList = {
           /**
-          * Total number of items available on the server.
+          * Total number of runtimes documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of runtimes.
           */
@@ -161,9 +161,9 @@ declare module "node-appwrite" {
       */
       export type DeploymentList = {
           /**
-          * Total number of items available on the server.
+          * Total number of deployments documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of deployments.
           */
@@ -174,9 +174,9 @@ declare module "node-appwrite" {
       */
       export type ExecutionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of executions documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of executions.
           */
@@ -187,9 +187,9 @@ declare module "node-appwrite" {
       */
       export type CountryList = {
           /**
-          * Total number of items available on the server.
+          * Total number of countries documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of countries.
           */
@@ -200,9 +200,9 @@ declare module "node-appwrite" {
       */
       export type ContinentList = {
           /**
-          * Total number of items available on the server.
+          * Total number of continents documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of continents.
           */
@@ -213,9 +213,9 @@ declare module "node-appwrite" {
       */
       export type LanguageList = {
           /**
-          * Total number of items available on the server.
+          * Total number of languages documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of languages.
           */
@@ -226,9 +226,9 @@ declare module "node-appwrite" {
       */
       export type CurrencyList = {
           /**
-          * Total number of items available on the server.
+          * Total number of currencies documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of currencies.
           */
@@ -239,9 +239,9 @@ declare module "node-appwrite" {
       */
       export type PhoneList = {
           /**
-          * Total number of items available on the server.
+          * Total number of phones documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of phones.
           */
@@ -289,9 +289,9 @@ declare module "node-appwrite" {
       */
       export type AttributeList = {
           /**
-          * Total sum of items in the list.
+          * Total number of attributes in the given collection.
           */
-          sum: number;
+          total: number;
           /**
           * List of attributes.
           */
@@ -1020,9 +1020,9 @@ declare module "node-appwrite" {
           */
           dateCreated: number;
           /**
-          * Total sum of team members.
+          * Total number of team members.
           */
-          sum: number;
+          total: number;
       }
       /**
       * Membership
@@ -1104,7 +1104,7 @@ declare module "node-appwrite" {
           /**
           * Function environment variables.
           */
-          vars: string;
+          vars: object;
           /**
           * Function trigger events.
           */
@@ -2286,12 +2286,12 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} entrypoint
-     * @param {File} code
+     * @param {string} code
      * @param {boolean} activate
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDeployment(functionId: string, entrypoint: string, code: File, activate: boolean): Promise<Models.Deployment>;
+    createDeployment(functionId: string, entrypoint: string, code: string, activate: boolean): Promise<Models.Deployment>;
     /**
      * Get Deployment
      *
@@ -2688,13 +2688,13 @@ declare module "node-appwrite" {
      *
      * @param {string} bucketId
      * @param {string} fileId
-     * @param {File} file
+     * @param {string} file
      * @param {string[]} read
      * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile(bucketId: string, fileId: string, file: File, read?: string[], write?: string[]): Promise<Models.File>;
+    createFile(bucketId: string, fileId: string, file: string, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
