@@ -1037,17 +1037,21 @@ declare module "node-appwrite" {
           */
           userId: string;
           /**
+          * User name.
+          */
+          userName: string;
+          /**
+          * User email address.
+          */
+          userEmail: string;
+          /**
           * Team ID.
           */
           teamId: string;
           /**
-          * User name.
+          * Team name.
           */
-          name: string;
-          /**
-          * User email address.
-          */
-          email: string;
+          teamName: string;
           /**
           * Date, the user has been invited to join the team in Unix timestamp.
           */
@@ -1241,9 +1245,9 @@ declare module "node-appwrite" {
           */
           statusCode: number;
           /**
-          * The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
+          * The script response output string. Logs the last 4,000 characters of the execution response output.
           */
-          stdout: string;
+          response: string;
           /**
           * The script stderr output string. Logs the last 4,000 characters of the execution stderr output
           */
@@ -1564,7 +1568,7 @@ declare module "node-appwrite" {
      *
      * Update currently logged in user password. For validation, user is required
      * to pass in the new password, and the old password. For users created with
-     * OAuth and Team Invites, oldPassword is optional.
+     * OAuth, Team Invites and Magic URL, oldPassword is optional.
      *
      * @param {string} password
      * @param {string} oldPassword
@@ -1666,6 +1670,10 @@ declare module "node-appwrite" {
     /**
      * Update Session (Refresh Tokens)
      *
+     * Access tokens have limited lifespan and expire to mitigate security risks.
+     * If session was created using an OAuth provider, this route can be used to
+     * "refresh" the access token.
+     *
      * @param {string} sessionId
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -1728,9 +1736,14 @@ declare module "node-appwrite" {
      * Get Browser Icon
      *
      * You can use this endpoint to show different browser icons to your users.
-     * The code argument receives the browser code as it appears in your user
-     * /account/sessions endpoint. Use width, height and quality arguments to
-     * change the output settings.
+     * The code argument receives the browser code as it appears in your user [GET
+     * /account/sessions](/docs/client/account#accountGetSessions) endpoint. Use
+     * width, height and quality arguments to change the output settings.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
      *
      * @param {string} code
      * @param {number} width
@@ -1746,6 +1759,12 @@ declare module "node-appwrite" {
      * The credit card endpoint will return you the icon of the credit card
      * provider you need. Use width, height and quality arguments to change the
      * output settings.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
+     * 
      *
      * @param {string} code
      * @param {number} width
@@ -1773,6 +1792,12 @@ declare module "node-appwrite" {
      * You can use this endpoint to show different country flags icons to your
      * users. The code argument receives the 2 letter country code. Use width,
      * height and quality arguments to change the output settings.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
+     * 
      *
      * @param {string} code
      * @param {number} width
@@ -1789,6 +1814,12 @@ declare module "node-appwrite" {
      * you want. This endpoint is very useful if you need to crop and display
      * remote images in your app or in case you want to make sure a 3rd party
      * image is properly served using a TLS protocol.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 400x400px.
+     * 
      *
      * @param {string} url
      * @param {number} width
@@ -1810,6 +1841,12 @@ declare module "node-appwrite" {
      * default, a random theme will be selected. The random theme will persist for
      * the user's initials when reloading the same theme will always return for
      * the same initials.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
+     * 
      *
      * @param {string} name
      * @param {number} width
@@ -1825,6 +1862,7 @@ declare module "node-appwrite" {
      *
      * Converts a given plain text to a QR code image. You can use the query
      * parameters to change the size and style of the resulting image.
+     * 
      *
      * @param {string} text
      * @param {number} size
@@ -2123,9 +2161,7 @@ declare module "node-appwrite" {
     /**
      * Delete Document
      *
-     * Delete a document by its unique ID. This endpoint deletes only the parent
-     * documents, its attributes and relations to other documents. Child documents
-     * **will not** be deleted.
+     * Delete a document by its unique ID.
      *
      * @param {string} collectionId
      * @param {string} documentId
@@ -2209,9 +2245,9 @@ declare module "node-appwrite" {
      */
     create(functionId: string, name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
     /**
-     * List the currently active function runtimes.
+     * List runtimes
      *
-     * Get a list of all runtimes that are currently active in your project.
+     * Get a list of all runtimes that are currently active on your instance.
      *
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -2448,16 +2484,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getQueueLogs(): Promise<Models.HealthQueue>;
-    /**
-     * Get Usage Queue
-     *
-     * Get the number of usage stats that are waiting to be processed in the
-     * Appwrite internal queue server.
-     *
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    getQueueUsage(): Promise<Models.HealthQueue>;
     /**
      * Get Webhooks Queue
      *
@@ -3030,6 +3056,16 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getLogs(userId: string, limit?: number, offset?: number): Promise<Models.LogList>;
+    /**
+     * Get User Memberships
+     *
+     * Get the user membership list by its unique ID.
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getMemberships(userId: string): Promise<Models.MembershipList>;
     /**
      * Update Name
      *
