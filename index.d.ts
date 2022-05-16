@@ -1511,19 +1511,6 @@ declare module "node-appwrite" {
      */
     get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
-     * Delete Account
-     *
-     * Delete a currently logged in user account. Behind the scene, the user
-     * record is not deleted but permanently blocked from any access. This is done
-     * to avoid deleted accounts being overtaken by new users with the same email
-     * address. Any user-related resources like documents or storage files should
-     * be deleted separately.
-     *
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    delete(): Promise<Response>;
-    /**
      * Update Account Email
      *
      * Update currently logged in user account email address. After changing user
@@ -1692,6 +1679,17 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     deleteSession(sessionId: string): Promise<Response>;
+    /**
+     * Update Account Status
+     *
+     * Block the currently logged in user account. Behind the scene, the user
+     * record is not deleted but permanently blocked from any access. To
+     * completely delete a user, use the Users API instead.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
      * Create Email Verification
      *
@@ -3026,7 +3024,11 @@ declare module "node-appwrite" {
     /**
      * Delete User
      *
-     * Delete a user by its unique ID.
+     * Delete a user by its unique ID, thereby releasing it's ID. Since ID is
+     * released and can be reused, all user-related resources like documents or
+     * storage files should be deleted before user deletion. If you want to keep
+     * ID reserved, use the [updateStatus](/docs/server/users#usersUpdateStatus)
+     * endpoint instead.
      *
      * @param {string} userId
      * @throws {AppwriteException}
@@ -3145,7 +3147,8 @@ declare module "node-appwrite" {
     /**
      * Update User Status
      *
-     * Update the user status by its unique ID.
+     * Update the user status by its unique ID. Use this endpoint as an
+     * alternative to deleting a user if you want to keep user's ID reserved.
      *
      * @param {string} userId
      * @param {boolean} status
