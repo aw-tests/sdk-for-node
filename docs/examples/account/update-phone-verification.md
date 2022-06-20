@@ -1,18 +1,17 @@
 const sdk = require('node-appwrite');
-const fs = require('fs');
 
 // Init SDK
 let client = new sdk.Client();
 
-let functions = new sdk.Functions(client);
+let account = new sdk.Account(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     .setProject('5df5acd0d48c2') // Your project ID
-    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
+    .setJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...') // Your secret JSON Web Token
 ;
 
-let promise = functions.createDeployment('[FUNCTION_ID]', '[ENTRYPOINT]', 'file.png', false);
+let promise = account.updatePhoneVerification('[USER_ID]', '[SECRET]');
 
 promise.then(function (response) {
     console.log(response);

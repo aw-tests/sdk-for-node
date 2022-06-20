@@ -256,6 +256,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Collection creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Collection update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Collection read permissions.
           */
           $read: string[];
@@ -607,6 +615,14 @@ declare module "node-appwrite" {
           */
           $collection: string;
           /**
+          * Document creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Document update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Document read permissions.
           */
           $read: string[];
@@ -713,6 +729,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * User creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * User update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * User name.
           */
           name: string;
@@ -733,9 +757,17 @@ declare module "node-appwrite" {
           */
           email: string;
           /**
+          * User phone number in E.164 format.
+          */
+          phone: string;
+          /**
           * Email verification status.
           */
           emailVerification: boolean;
+          /**
+          * Phone verification status.
+          */
+          phoneVerification: boolean;
           /**
           * User preferences as a key-value object
           */
@@ -754,6 +786,10 @@ declare module "node-appwrite" {
           * Session ID.
           */
           $id: string;
+          /**
+          * Session creation date in Unix timestamp.
+          */
+          $createdAt: number;
           /**
           * User ID.
           */
@@ -856,6 +892,10 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Token creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
           * User ID.
           */
           userId: string;
@@ -914,6 +954,14 @@ declare module "node-appwrite" {
           */
           bucketId: string;
           /**
+          * File creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * File update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * File read permissions.
           */
           $read: string[];
@@ -925,10 +973,6 @@ declare module "node-appwrite" {
           * File name.
           */
           name: string;
-          /**
-          * File creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * File MD5 signature.
           */
@@ -959,6 +1003,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Bucket creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Bucket update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * File read permissions.
           */
           $read: string[];
@@ -970,14 +1022,6 @@ declare module "node-appwrite" {
           * Bucket permission model. Possible values: `bucket` or `file`
           */
           permission: string;
-          /**
-          * Bucket creation date in Unix timestamp.
-          */
-          dateCreated: number;
-          /**
-          * Bucket update date in Unix timestamp.
-          */
-          dateUpdated: number;
           /**
           * Bucket name.
           */
@@ -1012,13 +1056,17 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Team creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Team update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Team name.
           */
           name: string;
-          /**
-          * Team creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * Total number of team members.
           */
@@ -1032,6 +1080,14 @@ declare module "node-appwrite" {
           * Membership ID.
           */
           $id: string;
+          /**
+          * Membership creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Membership update date in Unix timestamp.
+          */
+          $updatedAt: number;
           /**
           * User ID.
           */
@@ -1078,6 +1134,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Function creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Function update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Execution permissions.
           */
           execute: string[];
@@ -1085,14 +1149,6 @@ declare module "node-appwrite" {
           * Function name.
           */
           name: string;
-          /**
-          * Function creation date in Unix timestamp.
-          */
-          dateCreated: number;
-          /**
-          * Function update date in Unix timestamp.
-          */
-          dateUpdated: number;
           /**
           * Function status. Possible values: `disabled`, `enabled`
           */
@@ -1172,6 +1228,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Deployment creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Deployment update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Resource ID.
           */
           resourceId: string;
@@ -1179,10 +1243,6 @@ declare module "node-appwrite" {
           * Resource type.
           */
           resourceType: string;
-          /**
-          * The deployment creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * The entrypoint file to use to execute the deployment code.
           */
@@ -1221,6 +1281,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Execution creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Execution update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Execution read permissions.
           */
           $read: string[];
@@ -1228,10 +1296,6 @@ declare module "node-appwrite" {
           * Function ID.
           */
           functionId: string;
-          /**
-          * The execution creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
           */
@@ -1564,6 +1628,20 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>>;
     /**
+     * Update Account Phone
+     *
+     * Update currently logged in user account phone number. After changing phone
+     * number, the user confirmation status will get reset. A new confirmation SMS
+     * is not sent automatically however you can use the phone confirmation
+     * endpoint again to send the confirmation SMS.
+     *
+     * @param {string} number
+     * @param {string} password
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhone<Preferences extends Models.Preferences>(number: string, password: string): Promise<Models.User<Preferences>>;
+    /**
      * Get Account Preferences
      *
      * Get currently logged in user preferences as a key-value object.
@@ -1700,8 +1778,8 @@ declare module "node-appwrite" {
      * should redirect the user back to your app and allow you to complete the
      * verification process by verifying both the **userId** and **secret**
      * parameters. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdateVerification). The verification
-     * link sent to the user's email address is valid for 7 days.
+     * process](/docs/client/account#accountUpdateEmailVerification). The
+     * verification link sent to the user's email address is valid for 7 days.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -1728,6 +1806,35 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     updateVerification(userId: string, secret: string): Promise<Models.Token>;
+    /**
+     * Create Phone Verification
+     *
+     * Use this endpoint to send a verification message to your user's phone
+     * number to confirm they are the valid owners of that address. The provided
+     * secret should allow you to complete the verification process by verifying
+     * both the **userId** and **secret** parameters. Learn more about how to
+     * [complete the verification
+     * process](/docs/client/account#accountUpdatePhoneVerification). The
+     * verification link sent to the user's phone number is valid for 15 minutes.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createPhoneVerification(): Promise<Models.Token>;
+    /**
+     * Create Phone Verification (confirmation)
+     *
+     * Use this endpoint to complete the user phone verification process. Use the
+     * **userId** and **secret** that were sent to your user's phone number to
+     * verify the user email ownership. If confirmed this route will return a 200
+     * status code.
+     *
+     * @param {string} userId
+     * @param {string} secret
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhoneVerification(userId: string, secret: string): Promise<Models.Token>;
   }
   export class Avatars extends Service {
     /**
@@ -3091,6 +3198,17 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
     /**
+     * Update Phone
+     *
+     * Update the user phone by its unique ID.
+     *
+     * @param {string} userId
+     * @param {string} number
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhone<Preferences extends Models.Preferences>(userId: string, number: string): Promise<Models.User<Preferences>>;
+    /**
      * Get User Preferences
      *
      * Get the user preferences by its unique ID.
@@ -3166,6 +3284,17 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
+    updateEmailVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
+    /**
+     * Update Phone Verification
+     *
+     * Update the user phone verification status by its unique ID.
+     *
+     * @param {string} userId
+     * @param {boolean} phoneVerification
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
   }
 }

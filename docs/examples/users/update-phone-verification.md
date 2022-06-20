@@ -1,10 +1,9 @@
 const sdk = require('node-appwrite');
-const fs = require('fs');
 
 // Init SDK
 let client = new sdk.Client();
 
-let functions = new sdk.Functions(client);
+let users = new sdk.Users(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
@@ -12,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-let promise = functions.createDeployment('[FUNCTION_ID]', '[ENTRYPOINT]', 'file.png', false);
+let promise = users.updatePhoneVerification('[USER_ID]', false);
 
 promise.then(function (response) {
     console.log(response);
