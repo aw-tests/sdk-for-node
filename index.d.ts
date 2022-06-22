@@ -248,6 +248,19 @@ declare module "node-appwrite" {
           phones: Phone[];
       }
       /**
+      * Database
+      */
+      export type Database = {
+          /**
+          * Database ID.
+          */
+          $id: string;
+          /**
+          * Database name.
+          */
+          name: string;
+      }
+      /**
       * Collection
       */
       export type Collection = {
@@ -271,6 +284,10 @@ declare module "node-appwrite" {
           * Collection write permissions.
           */
           $write: string[];
+          /**
+          * Database ID.
+          */
+          databaseId: string;
           /**
           * Collection name.
           */
@@ -1978,14 +1995,9 @@ declare module "node-appwrite" {
      */
     getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<Buffer>;
   }
-  export class Database extends Service {
+  export class Databases extends Service {
     /**
-     * List Collections
-     *
-     * Get a list of all the user collections. You can use the query params to
-     * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project's collections. [Learn more about different API
-     * modes](/docs/admin).
+     * List Databases
      *
      * @param {string} search
      * @param {number} limit
@@ -1996,12 +2008,59 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listCollections(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
+    /**
+     * Create Database
+     *
+     * @param {string} databaseId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    create(databaseId: string, name: string): Promise<Models.Database>;
+    /**
+     * Get Database
+     *
+     * @param {string} databaseId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    get(databaseId: string): Promise<Models.Collection>;
+    /**
+     * Update Database
+     *
+     * @param {string} databaseId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    update(databaseId: string, name: string): Promise<Models.Collection>;
+    /**
+     * Delete Database
+     *
+     * @param {string} databaseId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    delete(databaseId: string): Promise<Response>;
+    /**
+     * List Collections
+     *
+     * @param {string} databaseId
+     * @param {string} search
+     * @param {number} limit
+     * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
+     * @param {string} orderType
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listCollections(databaseId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
     /**
      * Create Collection
      *
-     * Create a new Collection.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} name
      * @param {string} permission
@@ -2010,23 +2069,20 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createCollection(collectionId: string, name: string, permission: string, read: string[], write: string[]): Promise<Models.Collection>;
+    createCollection(databaseId: string, collectionId: string, name: string, permission: string, read: string[], write: string[]): Promise<Models.Collection>;
     /**
      * Get Collection
      *
-     * Get a collection by its unique ID. This endpoint response returns a JSON
-     * object with the collection metadata.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCollection(collectionId: string): Promise<Models.Collection>;
+    getCollection(databaseId: string, collectionId: string): Promise<Models.Collection>;
     /**
      * Update Collection
      *
-     * Update a collection by its unique ID.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} name
      * @param {string} permission
@@ -2036,32 +2092,29 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateCollection(collectionId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean): Promise<Models.Collection>;
+    updateCollection(databaseId: string, collectionId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean): Promise<Models.Collection>;
     /**
      * Delete Collection
      *
-     * Delete a collection by its unique ID. Only users with write permissions
-     * have access to delete this resource.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteCollection(collectionId: string): Promise<Response>;
+    deleteCollection(databaseId: string, collectionId: string): Promise<Response>;
     /**
      * List Attributes
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listAttributes(collectionId: string): Promise<Models.AttributeList>;
+    listAttributes(databaseId: string, collectionId: string): Promise<Models.AttributeList>;
     /**
      * Create Boolean Attribute
      *
-     * Create a boolean attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2070,13 +2123,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBooleanAttribute(collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
+    createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
     /**
      * Create Email Attribute
      *
-     * Create an email attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2085,10 +2136,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEmailAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
+    createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
     /**
      * Create Enum Attribute
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {string[]} elements
@@ -2098,14 +2150,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEnumAttribute(collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
+    createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
     /**
      * Create Float Attribute
      *
-     * Create a float attribute. Optionally, minimum and maximum values can be
-     * provided.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2116,14 +2165,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFloatAttribute(collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
+    createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     /**
      * Create Integer Attribute
      *
-     * Create an integer attribute. Optionally, minimum and maximum values can be
-     * provided.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2134,13 +2180,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIntegerAttribute(collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
+    createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
     /**
      * Create IP Address Attribute
      *
-     * Create IP address attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2149,13 +2193,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIpAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
+    createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
     /**
      * Create String Attribute
      *
-     * Create a string attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {number} size
@@ -2165,13 +2207,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createStringAttribute(collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
+    createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
     /**
      * Create URL Attribute
      *
-     * Create a URL attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2180,33 +2220,31 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createUrlAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
+    createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
     /**
      * Get Attribute
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getAttribute(collectionId: string, key: string): Promise<Response>;
+    getAttribute(databaseId: string, collectionId: string, key: string): Promise<Response>;
     /**
      * Delete Attribute
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAttribute(collectionId: string, key: string): Promise<Response>;
+    deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<Response>;
     /**
      * List Documents
      *
-     * Get a list of all the user documents. You can use the query params to
-     * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project's documents. [Learn more about different API
-     * modes](/docs/admin).
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string[]} queries
      * @param {number} limit
@@ -2218,15 +2256,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listDocuments<Document extends Models.Document>(collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Models.DocumentList<Document>>;
+    listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Models.DocumentList<Document>>;
     /**
      * Create Document
      *
-     * Create a new Document. Before using this route, you should create a new
-     * collection resource using either a [server
-     * integration](/docs/server/database#databaseCreateCollection) API or
-     * directly from your database console.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @param {object} data
@@ -2235,25 +2269,21 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
+    createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Get Document
      *
-     * Get a document by its unique ID. This endpoint response returns a JSON
-     * object with the document data.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDocument<Document extends Models.Document>(collectionId: string, documentId: string): Promise<Document>;
+    getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string): Promise<Document>;
     /**
      * Update Document
      *
-     * Update a document by its unique ID. Using the patch method you can pass
-     * only specific fields that will get updated.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @param {object} data
@@ -2262,29 +2292,30 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
+    updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Delete Document
      *
-     * Delete a document by its unique ID.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteDocument(collectionId: string, documentId: string): Promise<Response>;
+    deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<Response>;
     /**
      * List Indexes
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listIndexes(collectionId: string): Promise<Models.IndexList>;
+    listIndexes(databaseId: string, collectionId: string): Promise<Models.IndexList>;
     /**
      * Create Index
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {string} type
@@ -2293,25 +2324,27 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIndex(collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
+    createIndex(databaseId: string, collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
     /**
      * Get Index
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getIndex(collectionId: string, key: string): Promise<Models.Index>;
+    getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index>;
     /**
      * Delete Index
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteIndex(collectionId: string, key: string): Promise<Response>;
+    deleteIndex(databaseId: string, collectionId: string, key: string): Promise<Response>;
   }
   export class Functions extends Service {
     /**

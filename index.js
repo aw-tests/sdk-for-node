@@ -3,7 +3,7 @@ const Query = require('./lib/query.js');
 const AppwriteException = require('./lib/exception.js');
 const Account = require('./lib/services/account.js');
 const Avatars = require('./lib/services/avatars.js');
-const Database = require('./lib/services/database.js');
+const Databases = require('./lib/services/databases.js');
 const Functions = require('./lib/services/functions.js');
 const Health = require('./lib/services/health.js');
 const Locale = require('./lib/services/locale.js');
@@ -17,7 +17,7 @@ module.exports = {
     AppwriteException,
     Account,
     Avatars,
-    Database,
+    Databases,
     Functions,
     Health,
     Locale,
