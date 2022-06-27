@@ -27,6 +27,19 @@ declare module "node-appwrite" {
           collections: Collection[];
       }
       /**
+      * Databases List
+      */
+      export type DatabaseList = {
+          /**
+          * Total number of databases documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of databases.
+          */
+          databases: Database[];
+      }
+      /**
       * Indexes List
       */
       export type IndexList = {
@@ -2008,7 +2021,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.DatabaseList>;
     /**
      * Create Database
      *
@@ -2292,7 +2305,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
+    updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Delete Document
      *
@@ -2460,12 +2473,12 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} entrypoint
-     * @param {string} code
+     * @param {InputFile} code
      * @param {boolean} activate
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDeployment(functionId: string, entrypoint: string, code: string, activate: boolean): Promise<Models.Deployment>;
+    createDeployment(functionId: string, entrypoint: string, code: InputFile, activate: boolean): Promise<Models.Deployment>;
     /**
      * Get Deployment
      *
@@ -2852,13 +2865,13 @@ declare module "node-appwrite" {
      *
      * @param {string} bucketId
      * @param {string} fileId
-     * @param {string} file
+     * @param {InputFile} file
      * @param {string[]} read
      * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile(bucketId: string, fileId: string, file: string, read?: string[], write?: string[]): Promise<Models.File>;
+    createFile(bucketId: string, fileId: string, file: InputFile, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
