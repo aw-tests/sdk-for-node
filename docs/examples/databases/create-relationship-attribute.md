@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = databases.createRelationshipAttribute('[DATABASE_ID]', '[COLLECTION_ID]', '[RELATED_COLLECTION_ID]', RelationshipType.oneToOne);
+const promise = databases.createRelationshipAttribute('[DATABASE_ID]', '[COLLECTION_ID]', '[RELATED_COLLECTION_ID]', sdk.RelationshipType.ONE_TO_ONE);
 
 promise.then(function (response) {
     console.log(response);

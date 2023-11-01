@@ -2152,6 +2152,7 @@ declare module "node-appwrite" {
     static guests(): string;
     static team(id: string, role?: string): string;
     static member(id: string): string;
+    static label(name: string): string;
   }
 
   export class Account extends Service {

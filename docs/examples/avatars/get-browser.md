@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = avatars.getBrowser(Browser.AvantBrowser);
+const promise = avatars.getBrowser(sdk.Browser.AVANT_BROWSER);
 
 promise.then(function (response) {
     console.log(response);
